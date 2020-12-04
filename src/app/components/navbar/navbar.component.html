@@ -30,7 +30,7 @@
       <div class="searchbutton">
         <form class="form-inline waves-light" mdbWavesEffect>
           <div class="md-form mt-0">
-            <input class="form-control mr-sm-2"  (keydown.enter)=onselectedsearch($event) type="text" style="place-content: white;" placeholder="Search" [(ngModel)]="serachvalue">
+            <input class="form-control mr-sm-2"  (keydown.enter)=onselectedsearch($event) type="text" style="place-content: white;" placeholder="Search">
           </div>
         </form>
       </div>
@@ -38,7 +38,7 @@
 
       <div class="file">
 
-        <input class="button1" type="file" (change)="onselectedfile($event)" [(ngModel)]="filename"><br><br>
+        <input class="button1" type="file" (change)="onselectedfile($event)"><br><br>
         <button mat-raised-button color="primary" class="button" (click)="displayfile()">Submit</button>
 
       </div>
