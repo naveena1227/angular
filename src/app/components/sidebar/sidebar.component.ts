@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import{LogicService} from 'src/app/logic.service';
+import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 
 declare interface RouteInfo {
   path: string;
@@ -25,7 +27,8 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() {}
+  constructor( public logic:LogicService,
+    private http:HttpClient) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
