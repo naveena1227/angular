@@ -146,7 +146,7 @@ searchvalue:any;
     console.log("Study : ", this.selectedfile)
 
 
-    this.http.post("http://127.0.0.1:5000/sendimage", fromData)
+    this.http.post("http://127.0.0.1:5001/sendimage", fromData)
       .subscribe((result) => {
         console.warn("result", result)
       })
@@ -157,7 +157,7 @@ searchvalue:any;
       let header = new HttpHeaders();
       header.append('Content-type','application/json');
       console.log("naveena")
-    return this.http.get("http://127.0.0.1:5000/search", { headers: header }).subscribe((response: any) => {
+    return this.http.get("http://127.0.0.1:5001/search", { headers: header }).subscribe((response: any) => {
 
       if (response && response.length > 0) {
 
@@ -253,7 +253,7 @@ this.logic.setjson(this.logic.naveena)
   let header = new HttpHeaders();
   header.append('Content-type', 'application/json');
   console.log("***Get Study", this.searchname);
-  return this.http.get("http://localhost:4500/getStudy", { headers: header, params: studyParams }).subscribe((response: any) => {
+  return this.http.get("http://http://127.0.0.1:5001/search", { headers: header, params: studyParams }).subscribe((response: any) => {
 
     if (response && response.length > 0) {
 
