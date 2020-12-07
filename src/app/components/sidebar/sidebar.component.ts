@@ -83,7 +83,7 @@ export class SidebarComponent implements OnInit {
       let header = new HttpHeaders();
       header.append('Content-type', 'application/json');
       console.log("***Get Study", this.searchname);
-      return this.http.get("http://localhost:4500/getStudy", { headers: header, params: studyParams }).subscribe((response: any) => {
+      return this.http.get("http://127.0.0.1:5001/search", { headers: header, params: studyParams }).subscribe((response: any) => {
     
         if (response && response.length > 0) {
     
