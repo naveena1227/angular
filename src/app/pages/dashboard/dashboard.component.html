@@ -1,0 +1,249 @@
+
+<div class=" content">
+  <div class=" col-sm-6 text-left">
+              
+    <h2 class=" card-title" >patientDetails</h2>
+  </div>
+  <div class=" row">
+    <div class=" col-4">
+      <div class=" card card-chart"  style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;" >Patient Name</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.name}}</div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-4">
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Pathology</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.pathology}}</div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-4">
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Patient Id</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.patientid}}</div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-4">
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Studydate</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.studydate}}</div>
+        </div>
+      </div>
+    </div>
+    <div class=" col-4">
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Birthdate</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.birthdate}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" col-sm-6 text-left">
+              
+    <h2 class=" card-title">Result</h2>
+  </div>
+  <div class=" row">
+  <div class=" col-4">
+    <div class=" card card-chart" style=" height: 12vh;">
+      <div class=" card-header">
+        <h5 class=" card-category" style="color: white;">Patient Sex</h5>
+      </div>
+      <div class=" card-body">
+        <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.sex}}</div>
+      </div>
+    </div>
+  </div>
+  <div class=" col-4">
+    <div class=" card card-chart" style=" height: 12vh;">
+      <div class=" card-header">
+        <h5 class=" card-category" style="color: white;">Modality</h5>
+      </div>
+      <div class=" card-body">
+        <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena" >{{d.modality}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class=" col-sm-6 text-left">
+              
+  <h2 class=" card-title">Image</h2>
+</div>
+<div class="row">
+  
+
+    <div class=" col-lg-12 "  >
+      <div class=" card card-chart" style=" height: 80vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: rgb(17, 144, 153);">IMAGE</h5>
+
+        </div>
+        <div class=" card-body">
+
+          <div class=" chart-area" style="width: auto;" *ngFor="let d of logic.naveena"> <img src="{{d.image}}"></div>
+
+
+        </div>
+      </div>
+    </div>
+
+
+</div>
+</div>
+
+
+
+<!-- <div class=" content">
+   <div class=" col-sm-6 text-left">
+      
+    <h2 class=" card-title">PatientDetails</h2>
+  </div>
+  <div class=" row">
+    
+    <div class=" col-lg-4" >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Patient Name</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.name}}</div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+    <!-- <div class=" col-lg-4"  >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Pathology</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.pathology}}</div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class=" col-lg-4"  >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">PatientId</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena"> {{d.id}} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class=" row">
+    <div class=" col-lg-4 "   >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Modality</h5>
+
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.modality}}</div>
+        </div>
+      </div>
+
+    </div> 
+
+    <div class=" col-lg-4 "  >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Modality</h5>
+
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large;color: white;" *ngFor="let d of logic.naveena">{{d.modality}}</div>
+        </div>
+      </div>
+
+    </div> 
+
+    <div class=" col-lg-4 "  >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">Modality</h5>
+
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large;color: white;" *ngFor="let d of logic.naveena">{{d.modality}}</div>
+        </div>
+      </div>
+
+    </div> 
+  
+  </div> <div class=" col-sm-6 text-left">
+    <h2 class=" card-title">Result</h2>
+  </div>
+
+  <div class=" row">
+
+    <div class=" col-lg-4"  >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">StudyDate</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena">{{d.studydate}}</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class=" col-lg-4"  >
+      <div class=" card card-chart" style=" height: 12vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: white;">BirthDate</h5>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area" style=" text-align: center; font-size: large;color: white;" *ngFor="let d of logic.naveena">{{d.birthdate}}</div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class=" row">
+
+    <div class=" col-lg-12 "  >
+      <div class=" card card-chart" style=" height: 100vh;">
+        <div class=" card-header">
+          <h5 class=" card-category" style="color: rgb(17, 144, 153);">IMAGE</h5>
+
+        </div>
+        <div class=" card-body">
+
+          <div class=" chart-area" style="display:absolute;" *ngFor="let d of logic.naveena"> <img src="{{d.image}}"></div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div> -->
