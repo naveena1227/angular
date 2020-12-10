@@ -14,19 +14,16 @@
        
         <p style="font-size: medium;">Patient Details</p>
       </a>
+      
       <table class="table table-striped tablefont">
         <thead>
           <th> Details </th>
         </thead>
+        <li *ngFor="let d of patients"  (click)="displaydetails(d.name)">
         <tbody (click)="displaydetails()">
           <tr>
-          <td>naveena</td>
+          <td>{{d.name}}</td>
           </tr>
-          <tr>
-          <td>
-            sahithi
-          </td>
-        </tr>
         </tbody>
       </table>
     </li>

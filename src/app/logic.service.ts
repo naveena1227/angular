@@ -6,11 +6,5 @@ import { Injectable } from '@angular/core';
 export class LogicService {
   naveena:any=[];
   constructor() { }
-  setjson(data)
-  {
-    this.naveena=data;
-  }
-  getjson(){
-    return this.naveena
-  }
+  
 }

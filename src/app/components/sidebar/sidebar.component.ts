@@ -32,6 +32,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.patient();
   }
   isMobileMenu() {
     if (window.innerWidth > 991) {
@@ -40,53 +41,53 @@ export class SidebarComponent implements OnInit {
     return true;
   }
   searchname:any;
-  displaydetails()
+  patient()
   {
    
-   alert("naveena") 
-      if ((this.searchname == 'naveena')) {
-       this.logic.naveena = [
-          {
-            "name": 'naveena',
-            "pathology": 'tb',
-            "patientid": "1028269",
-            "studydate": "12-12-2019",
-            "birthdate": "12-27-1997",
-            "age": "22",
-            "sex": "female",
-            "modality": "cr",
-            "image":"assets/img/mike.jpg"
+  //  alert("naveena") 
+  //     if ((this.searchname == 'naveena')) {
+  //      this.logic.naveena = [
+  //         {
+  //           "name": 'naveena',
+  //           "pathology": 'tb',
+  //           "patientid": "1028269",
+  //           "studydate": "12-12-2019",
+  //           "birthdate": "12-27-1997",
+  //           "age": "22",
+  //           "sex": "female",
+  //           "modality": "cr",
+  //           "image":"assets/img/mike.jpg"
     
-          }
-        ];
+  //         }
+  //       ];
     
-      }
-      else {
-         this.logic.naveena = [{
-          "name": 'pandu',
-            "pathology": 'fever',
-            "patientid": "123456",
-            "studydate": "12-12-2019",
-            "birthdate": "12-20-1997",
-            "age": "18",
-            "sex": "female",
-            "modality": "abc",
-            "image":"assets/img/james.jpg"
-        }
+  //     }
+  //     else {
+  //        this.logic.naveena = [{
+  //         "name": 'pandu',
+  //           "pathology": 'fever',
+  //           "patientid": "123456",
+  //           "studydate": "12-12-2019",
+  //           "birthdate": "12-20-1997",
+  //           "age": "18",
+  //           "sex": "female",
+  //           "modality": "abc",
+  //           "image":"assets/img/james.jpg"
+  //       }
     
-        ];
+  //       ];
     
-      }
-      alert(this.searchname) 
+   //   }
+      
     console.log(this.logic.naveena)
-    this.logic.setjson(this.logic.naveena)
+    
     
       let studyParams = new HttpParams();
       studyParams = studyParams.append("patientId", this.searchname)
       let header = new HttpHeaders();
       header.append('Content-type', 'application/json');
       console.log("***Get Study", this.searchname);
-      return this.http.get("http://localhost:4500/getStudy", { headers: header, params: studyParams }).subscribe((response: any) => {
+      return this.http.get("http://pne-backend-svc.default:5011/search", { headers: header, params: studyParams }).subscribe((response: any) => {
     
         if (response && response.length > 0) {
     
@@ -111,4 +112,11 @@ export class SidebarComponent implements OnInit {
     
       })
   }
+  displaydetails(name){
+    alert(name)
+
+
+  }
 }
+
+

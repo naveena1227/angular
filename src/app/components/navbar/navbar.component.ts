@@ -3,53 +3,72 @@ import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import{LogicService} from 'src/app/logic.service';
+import { LogicService } from 'src/app/logic.service';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.css"]
 })
+export class Details{
+  constructor(
+    public name:string,
+    public patientid:string,
+    public pathology:string,
+    public studydate:string,
+    public birthdate:string,
+    public age:string,
+    public sex:string,
+    public modality:string,
+    public image:string,
+
+
+
+  ) {}
+
+  
+}
 export class NavbarComponent implements OnInit, OnDestroy {
   private listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
-searchvalue:any;
+
   public isCollapsed = true;
 
   closeResult: string;
+
 
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
-    public logic:LogicService,
-    private http:HttpClient
+    public logic: LogicService,
+    private http: HttpClient
   ) {
     this.location = location;
     this.sidebarVisible = false;
   }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
-   updateColor = () => {
-   var navbar = document.getElementsByClassName('navbar')[0];
-     if (window.innerWidth < 993 && !this.isCollapsed) {
-       navbar.classList.add('bg-white');
-       navbar.classList.remove('navbar-transparent');
-     } else {
-       navbar.classList.remove('bg-white');
-       navbar.classList.add('navbar-transparent');
-     }
-   };
+  updateColor = () => {
+    var navbar = document.getElementsByClassName('navbar')[0];
+    if (window.innerWidth < 993 && !this.isCollapsed) {
+      navbar.classList.add('bg-white');
+      navbar.classList.remove('navbar-transparent');
+    } else {
+      navbar.classList.remove('bg-white');
+      navbar.classList.add('navbar-transparent');
+    }
+  };
   ngOnInit() {
     window.addEventListener("resize", this.updateColor);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName("navbar-toggler")[0];
     this.router.events.subscribe(event => {
-
+      this.sidebarClose();
       var $layer: any = document.getElementsByClassName("close-layer")[0];
       if ($layer) {
         $layer.remove();
@@ -80,7 +99,7 @@ searchvalue:any;
       mainPanel.style.position = "fixed";
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
       toggleButton.classList.add("toggled");
     }, 500);
 
@@ -88,7 +107,79 @@ searchvalue:any;
 
     this.sidebarVisible = true;
   }
-  
+  sidebarClose() {
+    const html = document.getElementsByTagName("html")[0];
+    this.toggleButton.classList.remove("toggled");
+    const mainPanel = <HTMLElement>(
+      document.getElementsByClassName("main-panel")[0]
+    );
+
+    if (window.innerWidth < 991) {
+      setTimeout(function () {
+        mainPanel.style.position = "";
+      }, 500);
+    }
+    this.sidebarVisible = false;
+    html.classList.remove("nav-open");
+  }
+  sidebarToggle() {
+    // const toggleButton = this.toggleButton;
+    // const html = document.getElementsByTagName('html')[0];
+    var $toggle = document.getElementsByClassName("navbar-toggler")[0];
+
+    if (this.sidebarVisible === false) {
+      this.sidebarOpen();
+    } else {
+      this.sidebarClose();
+    }
+    const html = document.getElementsByTagName("html")[0];
+
+    if (this.mobile_menu_visible == 1) {
+      // $('html').removeClass('nav-open');
+      html.classList.remove("nav-open");
+      if ($layer) {
+        $layer.remove();
+      }
+      setTimeout(function () {
+        $toggle.classList.remove("toggled");
+      }, 400);
+
+      this.mobile_menu_visible = 0;
+    } else {
+      setTimeout(function () {
+        $toggle.classList.add("toggled");
+      }, 430);
+
+      var $layer = document.createElement("div");
+      $layer.setAttribute("class", "close-layer");
+
+      if (html.querySelectorAll(".main-panel")) {
+        document.getElementsByClassName("main-panel")[0].appendChild($layer);
+      } else if (html.classList.contains("off-canvas-sidebar")) {
+        document
+          .getElementsByClassName("wrapper-full-page")[0]
+          .appendChild($layer);
+      }
+
+      setTimeout(function () {
+        $layer.classList.add("visible");
+      }, 100);
+
+      $layer.onclick = function () {
+        //asign a function
+        html.classList.remove("nav-open");
+        this.mobile_menu_visible = 0;
+        $layer.classList.remove("visible");
+        setTimeout(function () {
+          $layer.remove();
+          $toggle.classList.remove("toggled");
+        }, 400);
+      }.bind(this);
+
+      html.classList.add("nav-open");
+      this.mobile_menu_visible = 1;
+    }
+  }
 
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -104,7 +195,13 @@ searchvalue:any;
     return "Dashboard";
   }
 
- 
+  open(content) {
+    this.modalService.open(content, { windowClass: 'modal-search' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -112,171 +209,136 @@ searchvalue:any;
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
-  ngOnDestroy(){
-     window.removeEventListener("resize", this.updateColor);
+  ngOnDestroy() {
+    window.removeEventListener("resize", this.updateColor);
   }
+  searchvalue: any;
 
-  selectedfile:any
+
+
+
+  selectedfile: any
 
 
   displayfile() {
 
-    this.logic.naveena = [
-      {
-        "name": 'naveena',
-        "pathology": 'tb',
-        "patientid": "1028269",
-        "studydate": "12-12-2019",
-        "birthdate": "12-27-1997",
-        "age": "22",
-        "sex": "female",
-        "modality": "cr",
-        "image":"assets/img/james.jpg"
-
-      }
-
-    ];
-    this.logic.setjson(this.logic.naveena)
-    
-    let fromData= new FormData();
-    fromData.append('file',this.selectedfile)
-    console.log("Study : ", this.selectedfile)
-
-
-    this.http.post("http://127.0.0.1:5000/sendimage", fromData)
-      .subscribe((result) => {
-        console.warn("result", result)
-      })
-
-
-
-    this.sleep(10000).then(() => {  
-      let header = new HttpHeaders();
-      header.append('Content-type','application/json');
-      console.log("naveena")
-    return this.http.get("http://127.0.0.1:5000/search", { headers: header }).subscribe((response: any) => {
-
-      if (response && response.length > 0) {
-
-        response.forEach((element: { name: any; pathology:any; patientid:any; studydate:any; birthdate:any; age:any;sex:any;modality:any;image:any}) => {
-          this.logic.naveena.push({
-
-            "name": element.name,
-        "pathology": element.pathology,
-        "patientid": element.patientid,
-        "studydate": element.studydate,
-        "birthdate": element.birthdate,
-        "age": element.age,
-        "sex": element.sex,
-        "modality": element.modality,
-        "image":element.image
-
-          })
-        });
+    let fromData = new FormData();
+    fromData.append('file', this.selectedfile)
      
-
-
-      }
-
-    })
-  });
+    return this.http.post<Details>("http://pne-backend-svc.default:5011/sendimage", fromData).subscribe((result)=>{
+    
+      this.logic.naveena.push({
+        "name": result.name,
+        "pathology": result.pathology,
+        "patientid": result.patientid,
+        "studydate": result.studydate,
+        "birthdate": result.birthdate,
+        "age": result.age,
+        "sex": result.sex,
+        "modality": result.modality,
+        "image": result.image
+      })
+        
+      });
+    
   }
+
+
+
+    
+    // console.log("Study : ", this.selectedfile)
+    // this.http.post("http://127.0.0.1:5011/sendimage", fromData)
+    //   .subscribe((result) => {
+    //     console.warn("result", result)
+    //   })
+    // let studyParams = new HttpParams();
+    // studyParams = studyParams.append("name", <File>fromData)
+    // let header = new HttpHeaders();
+    // header.append('Content-type', 'application/json');
+    // console.log("***Get Study", fromData);
+    // header.append('Content-type', 'application/json');
+    // console.log("naveena")
+    // return this.http.get("http://127.0.0.1:5011/sendimage", { headers: header,params: studyParams }).subscribe((response: any) => {
+
+    //   if (response && response.length > 0) {
+
+    //     response.forEach((element: { name: any; pathology: any; patientid: any; studydate: any; birthdate: any; age: any; sex: any; modality: any; image: any }) => {
+    //       this.logic.naveena.push({
+
+    //         "name": element.name,
+    //         "pathology": element.pathology,
+    //         "patientid": element.patientid,
+    //         "studydate": element.studydate,
+    //         "birthdate": element.birthdate,
+    //         "age": element.age,
+    //         "sex": element.sex,
+    //         "modality": element.modality,
+    //         "image": element.image
+
+    //       })
+    //     });
+
+
+
+    //   }
+
+    // })
+    //   ;
+  
   onselectedfile(event: any) {
     this.selectedfile = event.target.files[0];
 
 
   }
 
-  sleep(ms: number) {
-    alert("naveena")
-   return new Promise(resolve => setTimeout(resolve, ms));
- }
 
 
 
-selectedsearch:any;
 
- onselectedsearch(event: any) {
+  selectedsearch: any;
 
-  this.selectedsearch = <string>event.target.value;
 
-alert(this.selectedsearch)
-  this.displaysearch()
-}
-searchname: any
-displaysearch() {
 
-  this.searchname = this.selectedsearch
-alert(this.selectedsearch)
-  if ((this.searchname == 'one')) {
-   this.logic.naveena = [
-      {
-        "name": 'naveena',
-        "pathology": 'tb',
-        "patientid": "1028269",
-        "studydate": "12-12-2019",
-        "birthdate": "12-27-1997",
-        "age": "22",
-        "sex": "female",
-        "modality": "cr",
-        "image":"assets/img/mike.jpg"
+  displaysearch() {
+    this.selectedsearch = <String>((<HTMLInputElement>document.getElementById("mySearch")).value)
+    let studyParams = new HttpParams();
+    studyParams = studyParams.append("name", this.selectedsearch)
+    let header = new HttpHeaders();
+    header.append('Content-type', 'application/json');
+    console.log("***Get Study", this.selectedsearch);
+    return this.http.get("http://pne-backend-svc.default:5011/search", { headers: header, params: studyParams }).subscribe((response: any) => {
+
+      if (response && response.length > 0) {
+
+        response.forEach((element: { name: any; pathology: any; patientid: any; studydate: any; birthdate: any; age: any; sex: any; modality: any; image: any }) => {
+          this.logic.naveena.push({
+
+            "name": element.name,
+            "pathology": element.pathology,
+            "patientid": element.patientid,
+            "studydate": element.studydate,
+            "birthdate": element.birthdate,
+            "age": element.age,
+            "sex": element.sex,
+            "modality": element.modality,
+            "image": element.image
+
+          })
+        });
+
 
       }
-    ];
 
+    })
   }
-  else {
-
-    this.logic.naveena = [{
-      "name": 'pandu',
-        "pathology": 'fever',
-        "patientid": "123456",
-        "studydate": "12-12-2019",
-        "birthdate": "12-20-1997",
-        "age": "18",
-        "sex": "female",
-        "modality": "abc",
-        "image":"assets/img/james.jpg"
-    }
-
-    ];
-
-  }
-console.log(this.logic.naveena)
-this.logic.setjson(this.logic.naveena)
-
-  let studyParams = new HttpParams();
-  studyParams = studyParams.append("patientId", this.searchname)
-  let header = new HttpHeaders();
-  header.append('Content-type', 'application/json');
-  console.log("***Get Study", this.searchname);
-  return this.http.get("http://localhost:4500/getStudy", { headers: header, params: studyParams }).subscribe((response: any) => {
-
-    if (response && response.length > 0) {
-
-      response.forEach((element: { name: any; pathology:any; patientid:any; studydate:any; birthdate:any; age:any;sex:any;modality:any;image:any }) => {
-        this.logic.naveena.push({
-
-          "name": element.name,
-          "pathology": element.pathology,
-          "patientid": element.patientid,
-          "studydate": element.studydate,
-          "birthdate": element.birthdate,
-          "age": element.age,
-          "sex": element.sex,
-          "modality": element.modality,
-          "image":element.image
-
-        })
-      });
-
-
-    }
-
-  })
 }
 
-}
+
+
+
+
+
+
