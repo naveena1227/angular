@@ -77,7 +77,7 @@
         <h5 class=" card-category" style="color: white;">Pathology</h5>
       </div>
       <div class=" card-body">
-        <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena" [style.color]="d.pathology == 'true' ? 'red' : 'green'">{{d.pathology}}</div>
+        <div class=" chart-area" style=" text-align: center; font-size: large; color: white;" *ngFor="let d of logic.naveena" [style.color]="d.pathology == 'helathy' ? 'green' : 'red'">{{d.pathology}}</div>
       </div>
     </div>
   </div>
